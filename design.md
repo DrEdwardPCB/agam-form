@@ -56,6 +56,7 @@ this document covers the design of this system
 - filestorage should consider using AWS S3
 - leverage k8s or Docker Swarm to orchestrate every different services.
 - id can uses snowflakeId for roughly order by time and without int overflow problem
+- currently the Docker file is quite large it does not go through any optimization on minimization.
 
 ## ERD Design
 ```mermaid
