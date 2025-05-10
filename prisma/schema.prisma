@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sqlite.db"
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  username      String         @unique
+  email         String         @unique
+  passwordHash  String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  forms         Form[]
+  formResponses FormResponse[]
+
+  @@map("users")
+}
+
+model Form {
+  id            Int            @id @default(autoincrement())
+  userId        Int
+  title         String
+  description   String?
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  user          User           @relation(fields: [userId], references: [id])
+  questions     Question[]
+  formResponses FormResponse[]
+
+  @@index([userId])
+  @@map("forms")
+}
+
+model Question {
+  id              Int              @id @default(autoincrement())
+  formId          Int
+  questionText    String
+  questionType    QuestionType
+  isRequired      Boolean          @default(false)
+  displayOrder    Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  form            Form             @relation(fields: [formId], references: [id], onDelete: Cascade)
+  questionOptions QuestionOption[]
+  responseAnswers ResponseAnswer[]
+
+  @@index([formId])
+  @@map("questions")
+}
+
+enum QuestionType {
+  TEXT
+  DROPDOWN
+  FILE_UPLOAD
+}
+
+model QuestionOption {
+  id              Int              @id @default(autoincrement())
+  questionId      Int
+  optionText      String
+  displayOrder    Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  question        Question         @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  responseAnswers ResponseAnswer[]
+
+  @@index([questionId])
+  @@map("question_options")
+}
+
+model FormResponse {
+  id              Int              @id @default(autoincrement())
+  formId          Int
+  userId          Int
+  submittedAt     DateTime         @default(now())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  form            Form             @relation(fields: [formId], references: [id])
+  user            User             @relation(fields: [userId], references: [id])
+  responseAnswers ResponseAnswer[]
+
+  @@index([formId])
+  @@index([userId])
+  @@map("form_responses")
+}
+
+model ResponseAnswer {
+  id           Int             @id @default(autoincrement())
+  responseId   Int
+  questionId   Int
+  optionId     Int?
+  textAnswer   String?
+  filePath     String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  formResponse FormResponse    @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  question     Question        @relation(fields: [questionId], references: [id])
+  option       QuestionOption? @relation(fields: [optionId], references: [id])
+
+  @@index([responseId])
+  @@index([questionId])
+  @@index([optionId])
+  @@map("response_answers")
+}
