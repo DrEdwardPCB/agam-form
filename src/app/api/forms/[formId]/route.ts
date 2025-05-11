@@ -28,7 +28,7 @@ const formSchema = z.object({
   questions: z.array(questionSchema),
 });
 
-export async function GET(request: Request, { params }: { params: { formId: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ formId: string }> }) {
   try {
     const formId = parseInt((await params).formId);
     if (isNaN(formId)) {
@@ -65,7 +65,7 @@ export async function GET(request: Request, { params }: { params: { formId: stri
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { formId: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ formId: string }> }) {
   const awaitedParams = await params;
   try {
     const session = await getServerSession(authOptions);
@@ -235,7 +235,10 @@ export async function PUT(request: Request, { params }: { params: { formId: stri
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { formId: string } }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ formId: string }> }
+) {
   const awaitedParams = await params;
   try {
     const session = await getServerSession(authOptions);

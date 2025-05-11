@@ -7,9 +7,10 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { formId: string; responseId: string } }
+  { params }: { params: Promise<{ formId: string; responseId: string }> }
 ) {
   try {
+    const awaitedParams = await params;
     const session = await getServerSession(authOptions);
     // @ts-expect-error - user id is a string
 
@@ -17,8 +18,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const formId = parseInt(params.formId);
-    const responseId = parseInt(params.responseId);
+    const formId = parseInt(awaitedParams.formId);
+    const responseId = parseInt(awaitedParams.responseId);
 
     if (isNaN(formId) || isNaN(responseId)) {
       return NextResponse.json({ error: 'Invalid form ID or response ID' }, { status: 400 });

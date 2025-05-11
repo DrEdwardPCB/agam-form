@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { Navbar } from '@/components/navbar';
 import { redirect } from 'next/navigation';
 
-export default async function FormFillPage({ params }: { params: { formId: string } }) {
+export default async function FormFillPage({ params }: { params: Promise<{ formId: string }> }) {
   const awaitedParams = await params;
   const formId = parseInt(awaitedParams.formId);
   const session = await getServerSession(authOptions);

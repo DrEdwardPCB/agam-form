@@ -18,7 +18,7 @@ const responseSchema = z.object({
   responseAnswers: z.array(answerSchema),
 });
 
-export async function GET(request: Request, { params }: { params: { formId: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ formId: string }> }) {
   const awaitedParams = await params;
   try {
     const session = await getServerSession(authOptions);
@@ -73,7 +73,7 @@ export async function GET(request: Request, { params }: { params: { formId: stri
   }
 }
 
-export async function POST(request: Request, { params }: { params: { formId: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ formId: string }> }) {
   const awaitedParams = await params;
   try {
     const session = await getServerSession(authOptions);

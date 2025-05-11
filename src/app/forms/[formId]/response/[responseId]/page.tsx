@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth';
 export default async function ResponseDetailPage({
   params,
 }: {
-  params: { formId: string; responseId: string };
+  params: Promise<{ formId: string; responseId: string }>;
 }) {
   const awaitedParams = await params;
   const formId = parseInt(awaitedParams.formId);

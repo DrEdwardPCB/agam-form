@@ -3,7 +3,7 @@ import { authOptions } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { Navbar } from '@/components/navbar';
-export default async function EditFormPage({ params }: { params: { formId: string } }) {
+export default async function EditFormPage({ params }: { params: Promise<{ formId: string }> }) {
   const formId = parseInt((await params).formId);
   const session = await getServerSession(authOptions);
   if (!session) {

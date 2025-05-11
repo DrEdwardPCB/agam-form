@@ -6,7 +6,11 @@ import { ResponseList } from '@/components/response-list';
 import { AggregateResponse } from '@/components/aggregate-response';
 import { ResponseTable } from '@/components/response-table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-export default async function FormResponsePage({ params }: { params: { formId: string } }) {
+export default async function FormResponsePage({
+  params,
+}: {
+  params: Promise<{ formId: string }>;
+}) {
   const awaitedParams = await params;
   const formId = parseInt(awaitedParams.formId);
   const session = await getServerSession(authOptions);
