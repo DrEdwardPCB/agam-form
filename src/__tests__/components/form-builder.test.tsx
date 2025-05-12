@@ -1,6 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { FormBuilder } from '@/components/form-builder';
-import { useRouter } from 'next/navigation';
 import userEvent from '@testing-library/user-event';
 
 // Mock next/navigation

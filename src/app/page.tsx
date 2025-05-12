@@ -5,6 +5,7 @@ import { Github } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { FormsList } from '@/components/forms-list';
+import { env } from '@/lib/envalid/env';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -27,7 +28,7 @@ export default async function Home() {
               </Button>
               <Button variant="outline" asChild>
                 <a
-                  href=""
+                  href={env.NEXT_PUBLIC_GITHUBURL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
