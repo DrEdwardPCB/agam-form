@@ -219,6 +219,7 @@ export function FormBuilder({
           <div className="space-y-2">
             <label className="text-sm font-medium">Form Title</label>
             <Input
+              name="formTitle"
               value={formData.title}
               onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
               placeholder="Enter form title"
@@ -227,6 +228,7 @@ export function FormBuilder({
           <div className="space-y-2">
             <label className="text-sm font-medium">Form Description</label>
             <Textarea
+              name="formDescription"
               value={formData.description}
               onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
               placeholder="Enter form description"
