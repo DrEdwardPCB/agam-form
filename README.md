@@ -42,12 +42,21 @@ This task was first design by design.md before anything start please refer to [d
 - Cypress for end-to-end testing, ensuring the UI works flawlessly. (noted that this is just for demo purpose that I know Cypress, sophisticate test case requires fine tune which are not sth doable within short time-frame)
 - Jest for unit testing critical functions, catching issues before they hit production. (noted that this is just for demo purpose that I know Cypress, sophisticate test case requires fine tune which are not sth doable within short time-frame)
 
-## The Little Extra: Drag-and-Drop Form Builder
+## UX Idea added :
+
+### Drag-and-Drop Form Builder
 
 Agam Form takes the hassle out of creating forms with a drag-and-drop interface:
 
 - Rearrange questions and dropdown options by simply dragging them.
 - Visual feedback ensures you always know what you’re moving.
+
+### response table
+
+Agam form keeps data consumer in mind with Print and Copy to CSV function
+
+- Allowing printing of response table with all the questions and response
+- Copying CSV to clipboard, allow seamless data sharing
 
 ## Secure by Design
 
@@ -66,10 +75,12 @@ For a secure experience, Agam Form uses NextAuth.js for user authentication:
 
 ### Installation
 
+**By Running Locally**
+
 1. Clone this repository:
 
 ```bash
-git clone [repository-url]
+git clone https://github.com/DrEdwardPCB/agam-form
 cd agam-form
 ```
 
@@ -85,17 +96,34 @@ npm install
 cp .env.example .env
 ```
 
-4. Initialize the database:
-
-```bash
-npx prisma migrate dev
-```
-
-5. Run the development server:
+4. Run the development server:
 
 ```bash
 npm run dev
 ```
+
+**By Running on Docker**
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/DrEdwardPCB/agam-form
+cd agam-form
+```
+
+2. Set up your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+3. Start docker:
+
+```bash
+docker compose up -d
+```
+
+either way project will be started on `http://localhost:3000`
 
 ## Project Layout
 

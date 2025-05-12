@@ -8,6 +8,6 @@ services:
     volumes:
       - ./prisma:/app/prisma
       - ./temp:/app/temp
-    environment:
-      - NODE_ENV=production
-    restart: unless-stopped 
+    env_file:
+      - .env
+    restart: unless-stopped
